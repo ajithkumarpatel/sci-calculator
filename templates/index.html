@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Scientific Calculator</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script>
+    function insert(value) {
+        const input = document.getElementById("expression");
+        input.value += value;
+    }
+    function clearInput() {
+        document.getElementById("expression").value = "";
+    }
+    function backspace() {
+        const input = document.getElementById("expression");
+        input.value = input.value.slice(0, -1);
+    }
+  </script>
+</head>
+<body>
+  <div class="calculator">
+    <h2>Scientific Calculator</h2>
+    <form action="/calculate" method="POST">
+      <input type="text" id="expression" name="expression" value="{{ expression }}" readonly>
+      <div class="keypad">
+        <!-- Top row -->
+        <button type="button" onclick="insert('sin(')">sin</button>
+        <button type="button" onclick="insert('cos(')">cos</button>
+        <button type="button" onclick="insert('tan(')">tan</button>
+        <button type="button" onclick="insert('sqrt(')">√</button>
+
+        <button type="button" onclick="insert('pi')">π</button>
+        <button type="button" onclick="insert('e')">e</button>
+        <button type="button" onclick="insert('^')">^</button>
+        <button type="button" onclick="insert('log(')">log</button>
+
+        <!-- Numbers -->
+        <button type="button" onclick="insert('7')">7</button>
+        <button type="button" onclick="insert('8')">8</button>
+        <button type="button" onclick="insert('9')">9</button>
+        <button type="button" onclick="insert('/')">/</button>
+
+        <button type="button" onclick="insert('4')">4</button>
+        <button type="button" onclick="insert('5')">5</button>
+        <button type="button" onclick="insert('6')">6</button>
+        <button type="button" onclick="insert('*')">*</button>
+
+        <button type="button" onclick="insert('1')">1</button>
+        <button type="button" onclick="insert('2')">2</button>
+        <button type="button" onclick="insert('3')">3</button>
+        <button type="button" onclick="insert('-')">-</button>
+
+        <button type="button" onclick="insert('0')">0</button>
+        <button type="button" onclick="insert('.')">.</button>
+        <button type="button" onclick="insert('+')">+</button>
+        <button type="button" onclick="insert('ln(')">ln</button>
+
+        <button type="button" onclick="insert('(')">(</button>
+        <button type="button" onclick="insert(')')">)</button>
+        <button type="button" onclick="clearInput()">C</button>
+        <button type="button" onclick="backspace()">⌫</button>
+
+        <!-- Submit -->
+        <button class="equal" type="submit">=</button>
+      </div>
+    </form>
+
+    {% if result is not none %}
+      <div class="result">
+        Result: {{ result }}
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>
